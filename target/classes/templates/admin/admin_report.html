@@ -1,0 +1,260 @@
+<div th:replace="admin/module/_header"></div>
+
+<div class="wrapper">
+    <div th:replace="admin/module/_sidebar"></div>
+    <div class="content-wrapper">
+        <style type="text/css" rel="stylesheet">
+            .role-ul > li {
+                list-style: none;
+                float: left;
+                margin: 0;
+                padding-bottom: 10px
+            }
+        </style>
+        <section class="content-header">
+            <h1 style="display: inline-block;">用户反馈管理</h1>
+            <ol class="breadcrumb">
+                <li>
+                    <a data-pjax="true" href="/admin">
+                        <i class="fa fa-dashboard"></i> 首页</a>
+                </li>
+                <li><a data-pjax="true" href="#">用户反馈管理</a></li>
+                <li class="active">用户反馈列表</li>
+            </ol>
+        </section>
+        <section class="content container-fluid">
+            <div class="row">
+                <div class="col-xs-12" th:if="${isAdmin}">
+                    <div class="col-md-4 col-xs-12" style="margin-bottom: 10px;padding-left: 0;">
+                        <button type="button" class="btn btn-danger">
+                            <i class="fa fa-remove"></i> 批量删除
+                        </button>
+                    </div>
+                </div>
+                <div class="col-xs-12">
+                    <div class="box box-primary">
+                        <div class="box-body table-responsive">
+                            <table class="table table-bordered table-hover">
+                                <thead>
+                                <tr>
+                                    <th><input type="checkbox" id="allSelect" onclick="doCheck()"></th>
+                                    <th>用户名</th>
+                                    <th class="col-md-3">文章</th>
+                                    <th class="col-md-2">反馈内容</th>
+                                    <th class="col-md-2">处理结果</th>
+                                    <th>状态</th>
+                                    <th>创建时间</th>
+                                    <th>操作</th>
+                                </tr>
+                                </thead>
+
+                                <tbody>
+                                <tr th:id="'report-'+${report.id}" th:each="report : ${reportList}">
+                                    <td><input type="checkbox" name="ids" th:value="${report.id}"></td>
+                                    <td>
+                                        <a th:href="${'/admin/user/edit?id='+report.userId}" target="_blank">[[${report.user.userName}]]</a>
+                                    </td>
+                                    <td>
+                                        <a th:href="${'/post/'+report.postId}" target="_blank">[[${report.post.postTitle}]]</a>
+                                    </td>
+                                    <td>[[${report.content}]]</td>
+                                    <td>[[${report.remark}]]</td>
+                                    <td>
+                                        <span class="text-danger" th:if="${report.status == 0}">待处理</span>
+                                        <span class="text-success" th:if="${report.status == 1}">已处理</span>
+                                    </td>
+                                    <td th:text="${#dates.format(report.createTime,'yyyy-MM-dd HH:mm')}"></td>
+                                    <td>
+                                        <a href="javascript:void(0)" th:if="${isAdmin}"
+                                           class="btn btn-info btn-xs "
+                                           th:onclick="'handlerIt('+${report.id}+')'">处理</a>
+                                        <a href="javascript:void(0)" th:onclick="'removeIt('+${report.id}+')'"
+                                           class="btn btn-danger btn-xs ">删除</a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="box-footer clearfix">
+                            <div class="no-margin pull-left">
+                                第 [[${pageInfo.current}]] / [[${pageInfo.pages}]] 页
+                            </div>
+                            <ul class="pagination no-margin pull-right">
+                                <li><a data-pjax="true" th:classappend="${pageInfo.current == 1 ? 'disabled' : ''}"
+                                       class="btn btn-sm"
+                                       href="/admin/report?page=1">
+                                    首页
+                                </a>
+                                </li>
+                                <li><a data-pjax="true" class="btn btn-sm"
+                                       th:classappend="${pageInfo.current == 1 ? 'disabled' : ''}"
+                                       th:href="'/admin/report?page='+${pageInfo.current-1}">
+                                    上一页
+                                </a>
+                                </li>
+                                <li><a data-pjax="true" class="btn btn-sm"
+                                       th:classappend="${pageInfo.current == pageInfo.pages ? 'disabled' : ''}"
+                                       th:href="'/admin/report?page='+${pageInfo.current+1}">
+                                    下一页
+                                </a>
+                                </li>
+                                <li><a data-pjax="true" class="btn btn-sm"
+                                       th:classappend="${pageInfo.current == pageInfo.pages ? 'disabled' : ''}"
+                                       th:href="'/admin/report?page='+${pageInfo.pages}">
+                                    尾页
+                                </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="reportModal">
+                <div class="modal-dialog">
+                    <div class="modal-content message_align">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                    aria-hidden="true">×</span></button>
+                            <h4 class="modal-title">反馈处理</h4>
+                        </div>
+                        <div class="modal-body" style="height: 150px;">
+                            <div class="form-group">
+                                <label for="remark"
+                                       class="col-md-2 control-label">回复
+                                </label>
+                                <div class="col-md-10" style="margin-bottom: 10px;">
+                                    <textarea class="form-control" rows="3" id="remark" name="remark"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">状态</label>
+                                <div class="col-md-10 control-radio">
+                                    <div class="pretty p-default p-round">
+                                        <input type="radio" name="status"
+                                               value="0">
+                                        <div class="state p-primary">
+                                            <label>待处理</label>
+                                        </div>
+                                    </div>
+                                    <div class="pretty p-default p-round">
+                                        <input type="radio" name="status"
+                                               value="1">
+                                        <div class="state p-primary">
+                                            <label>已处理</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <input type="hidden" id="id" name="id" value=""/>
+                            <button type="button" class="btn btn-default"
+                                    data-dismiss="modal">取消
+                            </button>
+                            <button type="button"
+                                    class="btn btn-primary"
+                                    onclick="saveReport()">确定
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <script>
+
+            function removeIt(id) {
+                layer.confirm("你确定是否删除？", function (index) {
+                    $.ajax({
+                        type: 'POST',
+                        url: '/admin/report/delete',
+                        async: false,
+                        data: {
+                            'id': id
+                        },
+                        success: function (data) {
+                            if (data.code == 0) {
+                                showMsg(data.msg, "error", 1000);
+                            } else {
+                                showMsg(data.msg, "success", 2000);
+                                $('#report-' + id).remove();
+                            }
+
+                        }
+                    });
+                    layer.close(index);
+                });
+            }
+
+            function handlerIt(id) {
+                $('#reportModal').modal();
+                $.ajax({
+                    type: 'GET',
+                    url: '/admin/report/detail',
+                    async: false,
+                    data: {
+                        'id': id
+                    },
+                    success: function (data) {
+                        if (data.code == 0) {
+                            showMsg(data.msg, "error", 1000);
+                        } else {
+                            $('#id').val(data.result.id);
+                            $('#remark').val(data.result.remark);
+                            $("input[name='status'][value='" + data.result.status + "']").attr("checked", true);
+                        }
+
+                    }
+                });
+            }
+
+            function saveReport() {
+                $.ajax({
+                    type: 'POST',
+                    url: '/admin/report/save',
+                    async: false,
+                    data: {
+                        'id': $('#id').val(),
+                        'remark': $('#remark').val(),
+                        'status': $("input[name='status']:checked").val()
+                    },
+                    success: function (data) {
+                        if (data.code == 0) {
+                            showMsg(data.msg, "error", 1000);
+                        } else {
+                            showMsgAndReload(data.msg, "success", 1000);
+                        }
+                    }
+                });
+            }
+
+            function batchDelete() {
+                var arr = [];
+                $('input[name="ids"]:checked').each(function () {
+                    arr.push($(this).val());
+                });
+                if (arr.length <= 0) {
+                    showMsg('请选择要删除的记录', "error", 1000);
+                } else {
+                    layer.confirm('你确定是否删除?', function (index) {
+                        $.ajax({
+                            url: "/admin/report/batchDelete?ids=" + arr,
+                            type: "POST",
+                            success: function (data) {
+                                if (data.code == 0) {
+                                    showMsg(data.msg, "error", 1000);
+                                } else {
+                                    showMsgAndReload(data.msg, "success", 2000);
+                                }
+                            }
+                        });
+                        layer.close(index);
+                    });
+                }
+            }
+
+        </script>
+    </div>
+</div>
+<div th:replace="admin/module/_footer"></div>
+

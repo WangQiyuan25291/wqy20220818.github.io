@@ -1,0 +1,134 @@
+2022-05-17 18:41:11.015  INFO 12644 --- [main] com.example.blog.Application             : Starting Application v1.0.0 on LAPTOP-0L7TUUBT with PID 12644 (C:\Users\Y9000P\Desktop\java大作业\ChuyunBlog\ChuyunBlog\target\ChuyunBlog.jar started by Y9000P in C:\Users\Y9000P\Desktop\java大作业\ChuyunBlog\ChuyunBlog\target)
+2022-05-17 18:41:11.017  INFO 12644 --- [main] com.example.blog.Application             : No active profile set, falling back to default profiles: default
+2022-05-17 18:41:11.702  INFO 12644 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$7d79fd4d] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-05-17 18:41:11.733  INFO 12644 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'shiroConfig' of type [com.example.blog.config.shiro.ShiroConfig$$EnhancerBySpringCGLIB$$216b9137] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-05-17 18:41:12.893  INFO 12644 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'hashedCredentialsMatcher' of type [org.apache.shiro.authc.credential.HashedCredentialsMatcher] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-05-17 18:41:12.911  INFO 12644 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'myRealm' of type [com.example.blog.config.shiro.MyRealm] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-05-17 18:41:12.916  INFO 12644 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'securityManager' of type [org.apache.shiro.web.mgt.DefaultWebSecurityManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-05-17 18:41:12.931  INFO 12644 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'getIgnoredUrlsProperties' of type [com.example.blog.config.properties.IgnoredUrlsProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-05-17 18:41:13.079  WARN 12644 --- [main] io.undertow.websockets.jsr               : UT026010: Buffer pool was not set on WebSocketDeploymentInfo, the default pool will be used
+2022-05-17 18:41:13.096  INFO 12644 --- [main] io.undertow.servlet                      : Initializing Spring embedded WebApplicationContext
+2022-05-17 18:41:13.096  INFO 12644 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 2047 ms
+2022-05-17 18:41:13.293  INFO 12644 --- [main] c.a.d.s.b.a.DruidDataSourceAutoConfigure : Init DruidDataSource
+2022-05-17 18:41:13.455  INFO 12644 --- [main] com.alibaba.druid.pool.DruidDataSource   : {dataSource-1} inited
+2022-05-17 18:41:14.295  WARN 12644 --- [main] org.thymeleaf.templatemode.TemplateMode  : [THYMELEAF][main] Template Mode 'HTML5' is deprecated. Using Template Mode 'HTML' instead.
+2022-05-17 18:41:14.738  INFO 34972 --- [main] com.example.blog.Application             : Starting Application v1.0.0 on LAPTOP-0L7TUUBT with PID 34972 (C:\Users\Y9000P\Desktop\java大作业\ChuyunBlog\ChuyunBlog\target\ChuyunBlog.jar started by Y9000P in C:\Users\Y9000P\Desktop\java大作业\ChuyunBlog\ChuyunBlog\target)
+2022-05-17 18:41:14.741  INFO 34972 --- [main] com.example.blog.Application             : No active profile set, falling back to default profiles: default
+2022-05-17 18:41:14.843  INFO 12644 --- [main] org.xnio                                 : XNIO version 3.3.8.Final
+2022-05-17 18:41:14.858  INFO 12644 --- [main] org.xnio.nio                             : XNIO NIO Implementation Version 3.3.8.Final
+2022-05-17 18:41:14.934  INFO 12644 --- [main] o.s.b.w.e.u.UndertowServletWebServer     : Undertow started on port(s) 8081 (http) with context path ''
+2022-05-17 18:41:14.936  INFO 12644 --- [main] com.example.blog.Application             : Started Application in 4.268 seconds (JVM running for 4.693)
+2022-05-17 18:41:14.938  INFO 12644 --- [main] com.example.blog.Application             : SENS started at http://localhost:8081
+2022-05-17 18:41:15.610  INFO 34972 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$5e69dd3f] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-05-17 18:41:15.642  INFO 34972 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'shiroConfig' of type [com.example.blog.config.shiro.ShiroConfig$$EnhancerBySpringCGLIB$$25b7129] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-05-17 18:41:16.678  INFO 34972 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'hashedCredentialsMatcher' of type [org.apache.shiro.authc.credential.HashedCredentialsMatcher] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-05-17 18:41:16.697  INFO 34972 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'myRealm' of type [com.example.blog.config.shiro.MyRealm] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-05-17 18:41:16.703  INFO 34972 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'securityManager' of type [org.apache.shiro.web.mgt.DefaultWebSecurityManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-05-17 18:41:16.719  INFO 34972 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'getIgnoredUrlsProperties' of type [com.example.blog.config.properties.IgnoredUrlsProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-05-17 18:41:16.862  WARN 34972 --- [main] io.undertow.websockets.jsr               : UT026010: Buffer pool was not set on WebSocketDeploymentInfo, the default pool will be used
+2022-05-17 18:41:16.877  INFO 34972 --- [main] io.undertow.servlet                      : Initializing Spring embedded WebApplicationContext
+2022-05-17 18:41:16.878  INFO 34972 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 2070 ms
+2022-05-17 18:41:17.085  INFO 34972 --- [main] c.a.d.s.b.a.DruidDataSourceAutoConfigure : Init DruidDataSource
+2022-05-17 18:41:17.231  INFO 34972 --- [main] com.alibaba.druid.pool.DruidDataSource   : {dataSource-1} inited
+2022-05-17 18:41:18.000  WARN 34972 --- [main] org.thymeleaf.templatemode.TemplateMode  : [THYMELEAF][main] Template Mode 'HTML5' is deprecated. Using Template Mode 'HTML' instead.
+2022-05-17 18:41:18.422  INFO 34972 --- [main] org.xnio                                 : XNIO version 3.3.8.Final
+2022-05-17 18:41:18.431  INFO 34972 --- [main] org.xnio.nio                             : XNIO NIO Implementation Version 3.3.8.Final
+2022-05-17 18:41:18.474 ERROR 34972 --- [main] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Web server failed to start. Port 8081 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 8081 or configure this application to listen on another port.
+
+2022-05-17 18:41:18.483  INFO 34972 --- [main] com.alibaba.druid.pool.DruidDataSource   : {dataSource-1} closed
+2022-05-17 18:44:36.167  INFO 32928 --- [main] com.example.blog.Application             : Starting Application v1.0.0 on LAPTOP-0L7TUUBT with PID 32928 (C:\Users\Y9000P\Desktop\java大作业\ChuyunBlog\ChuyunBlog\target\ChuyunBlog.jar started by Y9000P in C:\Users\Y9000P\Desktop\java大作业\ChuyunBlog\ChuyunBlog\target)
+2022-05-17 18:44:36.169  INFO 32928 --- [main] com.example.blog.Application             : No active profile set, falling back to default profiles: default
+2022-05-17 18:44:36.846  INFO 32928 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$eb5e36c] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-05-17 18:44:36.878  INFO 32928 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'shiroConfig' of type [com.example.blog.config.shiro.ShiroConfig$$EnhancerBySpringCGLIB$$b2a77756] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-05-17 18:44:37.936  INFO 32928 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'hashedCredentialsMatcher' of type [org.apache.shiro.authc.credential.HashedCredentialsMatcher] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-05-17 18:44:37.954  INFO 32928 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'myRealm' of type [com.example.blog.config.shiro.MyRealm] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-05-17 18:44:37.961  INFO 32928 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'securityManager' of type [org.apache.shiro.web.mgt.DefaultWebSecurityManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-05-17 18:44:37.977  INFO 32928 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'getIgnoredUrlsProperties' of type [com.example.blog.config.properties.IgnoredUrlsProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-05-17 18:44:38.140  WARN 32928 --- [main] io.undertow.websockets.jsr               : UT026010: Buffer pool was not set on WebSocketDeploymentInfo, the default pool will be used
+2022-05-17 18:44:38.157  INFO 32928 --- [main] io.undertow.servlet                      : Initializing Spring embedded WebApplicationContext
+2022-05-17 18:44:38.158  INFO 32928 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1960 ms
+2022-05-17 18:44:38.369  INFO 32928 --- [main] c.a.d.s.b.a.DruidDataSourceAutoConfigure : Init DruidDataSource
+2022-05-17 18:44:38.504  INFO 32928 --- [main] com.alibaba.druid.pool.DruidDataSource   : {dataSource-1} inited
+2022-05-17 18:44:39.260  WARN 32928 --- [main] org.thymeleaf.templatemode.TemplateMode  : [THYMELEAF][main] Template Mode 'HTML5' is deprecated. Using Template Mode 'HTML' instead.
+2022-05-17 18:44:39.658  INFO 32928 --- [main] org.xnio                                 : XNIO version 3.3.8.Final
+2022-05-17 18:44:39.670  INFO 32928 --- [main] org.xnio.nio                             : XNIO NIO Implementation Version 3.3.8.Final
+2022-05-17 18:44:39.727 ERROR 32928 --- [main] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Web server failed to start. Port 8081 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 8081 or configure this application to listen on another port.
+
+2022-05-17 18:44:39.739  INFO 32928 --- [main] com.alibaba.druid.pool.DruidDataSource   : {dataSource-1} closed
+2022-05-17 18:45:19.086  INFO 18072 --- [main] com.example.blog.Application             : Starting Application v1.0.0 on LAPTOP-0L7TUUBT with PID 18072 (C:\Users\Y9000P\Desktop\java大作业\ChuyunBlog\ChuyunBlog\target\ChuyunBlog.jar started by Y9000P in C:\Users\Y9000P\Desktop\java大作业\ChuyunBlog\ChuyunBlog\target)
+2022-05-17 18:45:19.088  INFO 18072 --- [main] com.example.blog.Application             : No active profile set, falling back to default profiles: default
+2022-05-17 18:45:19.774  INFO 18072 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$7d79fd4d] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-05-17 18:45:19.812  INFO 18072 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'shiroConfig' of type [com.example.blog.config.shiro.ShiroConfig$$EnhancerBySpringCGLIB$$216b9137] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-05-17 18:45:20.815  INFO 18072 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'hashedCredentialsMatcher' of type [org.apache.shiro.authc.credential.HashedCredentialsMatcher] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-05-17 18:45:20.836  INFO 18072 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'myRealm' of type [com.example.blog.config.shiro.MyRealm] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-05-17 18:45:20.841  INFO 18072 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'securityManager' of type [org.apache.shiro.web.mgt.DefaultWebSecurityManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-05-17 18:45:20.859  INFO 18072 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'getIgnoredUrlsProperties' of type [com.example.blog.config.properties.IgnoredUrlsProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-05-17 18:45:21.016  WARN 18072 --- [main] io.undertow.websockets.jsr               : UT026010: Buffer pool was not set on WebSocketDeploymentInfo, the default pool will be used
+2022-05-17 18:45:21.032  INFO 18072 --- [main] io.undertow.servlet                      : Initializing Spring embedded WebApplicationContext
+2022-05-17 18:45:21.033  INFO 18072 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1915 ms
+2022-05-17 18:45:21.218  INFO 18072 --- [main] c.a.d.s.b.a.DruidDataSourceAutoConfigure : Init DruidDataSource
+2022-05-17 18:45:21.359  INFO 18072 --- [main] com.alibaba.druid.pool.DruidDataSource   : {dataSource-1} inited
+2022-05-17 18:45:22.144  WARN 18072 --- [main] org.thymeleaf.templatemode.TemplateMode  : [THYMELEAF][main] Template Mode 'HTML5' is deprecated. Using Template Mode 'HTML' instead.
+2022-05-17 18:45:22.569  INFO 18072 --- [main] org.xnio                                 : XNIO version 3.3.8.Final
+2022-05-17 18:45:22.583  INFO 18072 --- [main] org.xnio.nio                             : XNIO NIO Implementation Version 3.3.8.Final
+2022-05-17 18:45:22.632 ERROR 18072 --- [main] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Web server failed to start. Port 8081 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 8081 or configure this application to listen on another port.
+
+2022-05-17 18:45:22.642  INFO 18072 --- [main] com.alibaba.druid.pool.DruidDataSource   : {dataSource-1} closed
+2022-05-17 18:46:13.278  INFO 23212 --- [main] com.example.blog.Application             : Starting Application v1.0.0 on LAPTOP-0L7TUUBT with PID 23212 (C:\Users\Y9000P\Desktop\java大作业\ChuyunBlog\ChuyunBlog\target\ChuyunBlog.jar started by Y9000P in C:\Users\Y9000P\Desktop\java大作业\ChuyunBlog\ChuyunBlog\target)
+2022-05-17 18:46:13.280  INFO 23212 --- [main] com.example.blog.Application             : No active profile set, falling back to default profiles: default
+2022-05-17 18:46:13.975  INFO 23212 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$bed926f3] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-05-17 18:46:14.006  INFO 23212 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'shiroConfig' of type [com.example.blog.config.shiro.ShiroConfig$$EnhancerBySpringCGLIB$$62cabadd] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-05-17 18:46:15.065  INFO 23212 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'hashedCredentialsMatcher' of type [org.apache.shiro.authc.credential.HashedCredentialsMatcher] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-05-17 18:46:15.086  INFO 23212 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'myRealm' of type [com.example.blog.config.shiro.MyRealm] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-05-17 18:46:15.092  INFO 23212 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'securityManager' of type [org.apache.shiro.web.mgt.DefaultWebSecurityManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-05-17 18:46:15.109  INFO 23212 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'getIgnoredUrlsProperties' of type [com.example.blog.config.properties.IgnoredUrlsProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-05-17 18:46:15.266  WARN 23212 --- [main] io.undertow.websockets.jsr               : UT026010: Buffer pool was not set on WebSocketDeploymentInfo, the default pool will be used
+2022-05-17 18:46:15.283  INFO 23212 --- [main] io.undertow.servlet                      : Initializing Spring embedded WebApplicationContext
+2022-05-17 18:46:15.285  INFO 23212 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1975 ms
+2022-05-17 18:46:15.481  INFO 23212 --- [main] c.a.d.s.b.a.DruidDataSourceAutoConfigure : Init DruidDataSource
+2022-05-17 18:46:15.621  INFO 23212 --- [main] com.alibaba.druid.pool.DruidDataSource   : {dataSource-1} inited
+2022-05-17 18:46:16.403  WARN 23212 --- [main] org.thymeleaf.templatemode.TemplateMode  : [THYMELEAF][main] Template Mode 'HTML5' is deprecated. Using Template Mode 'HTML' instead.
+2022-05-17 18:46:16.820  INFO 23212 --- [main] org.xnio                                 : XNIO version 3.3.8.Final
+2022-05-17 18:46:16.831  INFO 23212 --- [main] org.xnio.nio                             : XNIO NIO Implementation Version 3.3.8.Final
+2022-05-17 18:46:16.871  INFO 23212 --- [main] o.s.b.w.e.u.UndertowServletWebServer     : Undertow started on port(s) 8081 (http) with context path ''
+2022-05-17 18:46:16.874  INFO 23212 --- [main] com.example.blog.Application             : Started Application in 3.896 seconds (JVM running for 4.177)
+2022-05-17 18:46:16.877  INFO 23212 --- [main] com.example.blog.Application             : SENS started at http://localhost:8081
+2022-05-17 18:46:30.606  INFO 23212 --- [XNIO-1 task-1] io.undertow.servlet                      : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-05-17 18:46:30.607  INFO 23212 --- [XNIO-1 task-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2022-05-17 18:46:30.613  INFO 23212 --- [XNIO-1 task-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 5 ms

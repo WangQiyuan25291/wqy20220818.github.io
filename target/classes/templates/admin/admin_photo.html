@@ -1,0 +1,171 @@
+<div th:replace="admin/module/_header"></div>
+<style>
+
+</style>
+<div class="wrapper">
+    <!-- 菜单栏模块 -->
+    <div th:replace="admin/module/_sidebar"></div>
+    <div class="content-wrapper">
+        <section class="content-header">
+            <h1>
+                照片列表
+                <small></small>
+            </h1>
+            <ol class="breadcrumb">
+                <li>
+                    <a data-pjax="true" href="/admin">
+                        <i class="fa fa-dashboard"></i> 首页</a>
+                </li>
+                <li><a data-pjax="true" href="/admin/photoCategory">相册管理</a></li>
+                <li><a data-pjax="true" th:href="${'/admin/photoCategory/'+photoCategory.id}">[[${photoCategory.cateName}]]</a>
+                </li>
+                <li class="active">照片列表列表</li>
+            </ol>
+        </section>
+        <section class="content container-fluid">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="col-md-4 col-xs-12" style="padding-left: 0;">
+                        <button type="button" class="btn btn-primary" id="showUploadArea">
+                            上传
+                        </button>
+                    </div>
+                </div>
+                <div class="col-md-12" style="display: none" id="uploadArea">
+                    <form>
+                        <div>
+                            <div class="modal-header">
+                                图片上传
+                            </div>
+                            <div class="modal-body">
+                                <input type="file" name="file" id="file" multiple class="file-loading"/>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-12" style="margin-top: 20px;">
+                    <div th:each="photo : ${photoList}" class="col-lg-2 col-md-3 col-sm-6 col-xs-6 div-thumbnail-parent"
+                         th:onclick="'openDetail('+${photo.id}+')'">
+                        <a href="#" class="thumbnail">
+                            <img th:src="${photo.fileSmallPath}" class="img-responsive">
+                        </a>
+                    </div>
+                    <div th:if="${photoList.size() == 0}">
+                        还没有上传照片哦！
+                    </div>
+
+                </div>
+            </div>
+        </section>
+        <script th:inline="javascript">
+
+            function removeIt(id) {
+                layer.confirm('请确认是否删除', function (index) {
+                    $.ajax({
+                        type: 'DELETE',
+                        url: '/admin/photo/delete',
+                        async: false,
+                        data: {
+                            'id': id
+                        },
+                        success: function (data) {
+                            if (data.code == 0) {
+                                showMsg(data.msg, "error", 1000);
+                            } else {
+                                showMsgAndRedirect(data.msg, "success", 1000, "/admin/photoCategory");
+                            }
+
+                        }
+                    });
+                    layer.close(index);
+                });
+            }
+
+            // 勾选
+            $('.div-thumbnail').click(function () {
+                let dom = $(this).find('.thumbnail-checkbox');
+                if (dom.is(':checked')) {
+                    dom.removeAttr('checked');
+                } else {
+                    dom.attr('checked', 'checked');
+                }
+            })
+
+            function batchDelete() {
+                var arr = [];
+                $('input[name="ids"]:checked').each(function () {
+                    arr.push($(this).val());
+                });
+                if (arr.length <= 0) {
+                    showMsg('请选择需要删除的数据', "error", 1000);
+                } else {
+                    layer.confirm('请选择需要删除' + arr.length + '条数据吗？', function (index) {
+                        $.ajax({
+                            url: "/admin/photo/batchDelete?ids=" + arr,
+                            type: "DELETE",
+                            success: function (data) {
+                                if (data.code == 0) {
+                                    showMsg(data.msg, "error", 1000);
+                                } else {
+                                    showMsgAndReload(data.msg, "success", 2000);
+                                }
+                            }
+                        });
+                        layer.close(index);
+                    });
+                }
+            }
+
+            function openDetail(id) {
+                layer.open({
+                    type: 2,
+                    title: '照片详情',
+                    shadeClose: true,
+                    shade: 0.5,
+                    maxmin: true,
+                    area: ['90%', '90%'],
+                    content: '/admin/photo/detail?id=' + id,
+                    scrollbar: false
+                });
+            }
+
+
+            $(function () {
+                var control = $("#file");
+                var cateId = [[${photoCategory.id}]];
+                var uploadUrl = "/admin/photo/upload?cateId=" + cateId; // 上传到具体的相册，大家可以忽略
+                control.fileinput({
+                    language: 'zh', //设置语言
+                    uploadUrl: uploadUrl, //上传的地址
+                    allowedFileExtensions: ['png', 'jpeg', 'jpg', 'gif'],//接收的文件后缀
+                    showUpload: true, //显示批量上传按钮
+                    showCaption: false,//是否显示标题
+                    browseClass: "btn btn-primary", //按钮样式
+                    dropZoneEnabled: true,//是否显示拖拽区域
+                    //minImageWidth: 50, //图片的最小宽度
+                    //minImageHeight: 50,//图片的最小高度
+                    //maxImageWidth: 1000,//图片的最大宽度
+                    //maxImageHeight: 1000,//图片的最大高度
+                    maxFileSize: 0,//单位为kb，如果为0表示不限制文件大小
+                    minFileCount: 0,
+                    maxFileCount: 100,
+                    enctype: 'multipart/form-data',
+                    validateInitialCount: true,
+                    previewFileIcon: "<i class='glyphicon glyphicon-king'></i>",
+
+                    msgFilesTooMany: "选择上传的文件数量({n}) 超过允许的最大数值{m}！",
+                });
+                //导入文件上传完成之后的事件
+                $("#file").on("fileuploaded", function (event, data, previewId, index) {
+                    showMsgAndReload("上传成功", "success", 1000);
+                });
+            });
+
+            $('#showUploadArea').click(function () {
+                $('#uploadArea').toggle();
+            })
+        </script>
+    </div>
+
+</div>
+<div th:replace="admin/module/_footer"></div>

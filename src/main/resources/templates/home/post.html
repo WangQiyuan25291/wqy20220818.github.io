@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="zh_CN" xmlns:th="http://www.thymeleaf.org"
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+    <div th:replace="home/module/_header"></div>
+
+
+    <main id="tt-pageContent">
+        <div class="container">
+            <div class="tt-single-topic-list">
+                <div class="tt-item">
+                    <div class="tt-single-topic">
+                        <div class="tt-item-header">
+                            <div class="tt-item-info info-top">
+                                <div class="tt-avatar-icon">
+                                    <a th:href="${'/user/'+user.id}">
+                                        <img th:src="${user.userAvatar}" class="avatar" alt="">
+                                    </a>
+                                </div>
+                                <div class="tt-avatar-title">
+                                    <a th:href="'/user/'+${user.id}">[[${user.userDisplayName}]]</a>
+                                </div>
+                                <a href="#" class="tt-info-time">
+                                    <i class="tt-icon">
+                                        <svg>
+                                            <use xlink:href="#icon-time"></use>
+                                        </svg>
+                                    </i>[[${post.createTimeStr}]]
+                                </a>
+                            </div>
+                            <h3 class="tt-item-title">
+                                <a href="#">[[${post.postTitle}]]</a>
+                            </h3>
+                            <div class="tt-item-tag">
+                                <ul class="tt-list-badge">
+                                    <li th:if="${category != null}"><a th:href="'/category/'+${category.id}"><span
+                                            th:class="'tt-color0'+${category?.cateSort%9+1}+' tt-badge'">[[${category.cateName}]]</span></a>
+                                    </li>
+                                    <li th:if="${tagList != null && tagList.size() > 0}" th:each="tag : ${tagList}"><a
+                                            th:href="'/tag/'+${tag.id}"><span class="tt-badge">[[${tag.tagName}]]</span></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="tt-item-description" th:utext="${post.postContent}">
+
+                        </div>
+
+                        <div style="text-align: center;">
+                            <a href="javascript:void(0)" data-toggle="modal" data-target="#reportModal">投诉反馈</a> &nbsp;&nbsp;
+
+                            <!--                            分享给好友-->
+                            <!--                            <div id="share-qrcode" title="二维码分享"></div>-->
+                            <!--                            <div id="share-sina" title="新浪微博分享"></div>-->
+                            <!--                            <div id="share-qq" title="QQ好友分享"></div>-->
+                        </div>
+                        <div style="clear: both;"></div>
+                    </div>
+                </div>
+                <div class="tt-item">
+                    <div class="tt-info-box" id="tt-info-box">
+                        <h6 class="tt-title">统计信息</h6>
+                        <div class="tt-row-icon">
+                            <div class="tt-item">
+                                <a href="javascript:void(0)" class="tt-icon-btn tt-position-bottom" target="点击数">
+                                    <i class="tt-icon">
+                                        <svg>
+                                            <use xlink:href="#icon-view"></use>
+                                        </svg>
+                                    </i>
+                                    <span class="tt-text">[[${post.postViews}]]</span>
+                                </a>
+                            </div>
+                            <div class="tt-item">
+                                <a href="#commentForm" class="tt-icon-btn tt-position-bottom" title="评论">
+                                    <i class="tt-icon">
+                                        <svg>
+                                            <use xlink:href="#icon-reply"></use>
+                                        </svg>
+
+                                    </i>
+                                    <span class="tt-text">[[${post.commentSize}]]</span>
+                                </a>
+                            </div>
+                            <div class="tt-item">
+                                <a href="javascript:void(0)" th:data-id="${post.id}"
+                                   class="tt-icon-btn tt-position-bottom post-like">
+                                    <i class="tt-icon">
+                                        <svg>
+                                            <use xlink:href="#icon-like"></use>
+                                        </svg>
+                                    </i>
+                                    <span class="tt-text">[[${post.postLikes}]]</span>
+                                </a>
+                            </div>
+                            <div class="tt-item">
+                                <a href="javascript:void(0)" th:data-id="${post.id}"
+                                   class="tt-icon-btn tt-position-bottom post-dislike" title="点踩">
+                                    <i class="tt-icon">
+                                        <svg>
+                                            <use xlink:href="#icon-dislike"></use>
+                                        </svg>
+                                    </i>
+                                    <span class="tt-text">[[${post.postDisLikes}]]</span>
+                                </a>
+                            </div>
+                            <div class="tt-item">
+                                <a href="javascript:void(0)" th:data-id="${post.id}" title="收藏"
+                                   class="tt-icon-btn tt-position-bottom post-mark">
+                                    <i class="tt-icon">
+                                        <svg>
+                                            <use xlink:href="#icon-favorite"></use>
+                                        </svg>
+                                    </i>
+                                    <span class="tt-text">[[${post.markCount}]]</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <shiro:guest>
+                    <div class="tt-topic-list">
+                        <div class="tt-item tt-item-popup">
+                            <div class="tt-col-avatar">
+                                <img th:src="${staticCdnUrl+'/static/images/notlogin.jpeg'}" class="avatar" alt="">
+                            </div>
+                            <div class="tt-col-message">
+                                检测到您未登录，需要先登录才能回复哦！
+                            </div>
+                            <div class="tt-col-btn">
+                                <a type="button" href="/login" class="btn btn-primary">登录</a>
+                                <a type="button" href="/register" class="btn btn-secondary">注册</a>
+                            </div>
+                        </div>
+                    </div>
+                </shiro:guest>
+                <shiro:user>
+                    <div class="pt-editor form-default" id="comment">
+                        <form id="commentForm" itemid="comment-form">
+                            <h6 class="pt-title">发表回复</h6>
+                            <div class="form-group">
+                                <input type="hidden" name="id" id="postId" th:value="${post.id}">
+                                <input type="hidden" name="commentId" id="commentId">
+                                <textarea name="commentContent" id="commentContent" class="form-control" rows="5"
+                                          placeholder="发表你的看法"></textarea>
+                            </div>
+                            <div class="pt-row">
+                                <div class="col-auto">
+                                    <a href="javascript:void(0)" id="comment-btn"
+                                       class="btn btn-secondary btn-width-lg">回复</a>
+                                    <a href="javascript:void(0)" id="comment-cancel-btn" style="display: none;"
+                                       class="btn btn btn-primary btn-width-lg">取消回复</a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </shiro:user>
+                <div class="tt-item" th:each="comment : ${commentList}">
+                    <div class="tt-single-topic">
+                        <div class="tt-item-header pt-noborder">
+                            <div class="tt-item-info info-top">
+                                <div class="tt-avatar-icon">
+                                    <img th:src="${comment.user.userAvatar}" class="avatar" alt="">
+                                </div>
+                                <div class="tt-avatar-title">
+                                    <a th:href="'/user/'+${comment.user.id}" th:id="'comment-'+${comment.id}+'-user'">[[${comment.user.userDisplayName}]]</a>
+                                </div>
+                                <a href="#" class="tt-info-time">
+                                    <i class="tt-icon">
+                                        <svg>
+                                            <use xlink:href="#icon-time"></use>
+                                        </svg>
+                                    </i>[[${comment.createTimeStr}]]
+                                </a>
+                            </div>
+                        </div>
+                        <div class="tt-item-description">
+                            [[${comment.commentContent}]]
+                            <div class="topic-inner-list">
+                                <div class="topic-inner" th:each="c : ${comment.childComments}">
+                                    <div class="topic-inner-title">
+                                        <div class="topic-inner-avatar">
+                                            <img th:src="${c.user.userAvatar}" th:id="'comment-'+${comment.id}+'-user'"
+                                                 class="avatar" alt="">
+                                        </div>
+                                        <div class="topic-inner-title"><a th:href="'/user/'+${c.user.id}">[[${c.user.userDisplayName}]]</a>
+                                        </div>
+                                    </div>
+                                    <div class="topic-inner-description" th:utext="${c.commentContent}">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tt-item-info info-bottom">
+                            <a href="javascript:void(0)" th:data-id="${comment.id}" class="tt-icon-btn comment-like">
+                                <i class="tt-icon">
+                                    <svg>
+                                        <use xlink:href="#icon-like"></use>
+                                    </svg>
+                                </i>
+                                <span class="tt-text">[[${comment.likeCount}]]</span>
+                            </a>
+                            <a href="javascript:void(0)" th:data-id="${comment.id}" class="tt-icon-btn comment-dislike">
+                                <i class="tt-icon">
+                                    <svg>
+                                        <use xlink:href="#icon-dislike"></use>
+                                    </svg>
+                                </i>
+                                <span class="tt-text">[[${comment.dislikeCount}]]</span>
+                            </a>
+
+                            <a href="#comment" th:data-id="${comment.id}"
+                               class="tt-icon-btn tt-hover-02 tt-small-indent reply-btn">
+                                <i class="tt-icon">
+                                    <svg>
+                                        <use xlink:href="#icon-reply"></use>
+                                    </svg>
+                                </i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <div class="modal fade show" id="reportModal" tabindex="-1" role="dialog" aria-label="myModalLabel"
+         aria-modal="true" style="display: none;">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="tt-modal-advancedSearch">
+                    <div class="tt-modal-title">
+                        投诉反馈
+                        <a class="pt-close-modal" href="#" data-dismiss="modal">
+                            <svg class="icon">
+                                <use xlink:href="#icon-cancel"></use>
+                            </svg>
+                        </a>
+                    </div>
+                    <form class="form-default" action="/">
+                        <div class="form-group">
+                            <input type="hidden" id="reportPostId" th:value="${post.id}">
+                            <textarea class="form-control" id="reportContent" rows="3" placeholder="请输入投诉内容"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <button type="button" class="btn btn-secondary btn-block post-report">提交</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div th:replace="home/module/_footer"></div>
+
+

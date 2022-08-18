@@ -1,0 +1,254 @@
+<div th:replace="admin/module/_header"></div>
+<div class="wrapper">
+    <!-- 菜单栏模块 -->
+    <div th:replace="admin/module/_sidebar"></div>
+    <div class="content-wrapper">
+        <style type="text/css" rel="stylesheet">
+            .draft, .publish, .trash, .checking {
+                list-style: none;
+                float: left;
+                margin: 0;
+                padding-bottom: 10px
+            }
+
+            #btnNewPost {
+                margin-left: 4px;
+                padding: 3px 6px;
+                position: relative;
+                top: -4px;
+                border: 1px solid #ccc;
+                border-radius: 2px;
+                background: #fff;
+                text-shadow: none;
+                font-weight: 600;
+                font-size: 12px;
+                line-height: normal;
+                color: #3c8dbc;
+                cursor: pointer;
+                transition: all .2s ease-in-out
+            }
+
+            #btnNewPost:hover {
+                background: #3c8dbc;
+                color: #fff
+            }
+
+            .label {
+                background-color: #d6cdcd;
+            }
+
+            .box-body {
+                padding: 0;
+            }
+
+            .box {
+                border-top: 0;
+            }
+        </style>
+        <section class="content-header">
+            <h1 style="display: inline-block;">公告管理</h1>
+            <ol class="breadcrumb">
+                <li>
+                    <a data-pjax="true" href="/admin">
+                        <i class="fa fa-dashboard"></i> 首页</a>
+                </li>
+                <li><a data-pjax="true" href="#">公告管理</a></li>
+                <li class="active">公告列表</li>
+            </ol>
+        </section>
+        <section class="content container-fluid">
+            <div class="row">
+                <div class="col-xs-12">
+                    <ul style="list-style: none;padding-left: 0; vertical-align: center">
+                        <li class="publish">
+                            <a data-pjax="true" th:style="${status == 0 ? 'color: #000':''}" href="?status=0">已发布 |&nbsp;</a>
+                        </li>
+                        <li class="draft">
+                            <a data-pjax="true" th:style="${status == 1 ? 'color: #000':''}" href="?status=1">草稿
+                                |&nbsp;</a>
+                        </li>
+                        <li class="trash">
+                            <a data-pjax="true" th:style="${status == 2 ? 'color: #000':''}" href="?status=2">回收站</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-xs-12">
+                    <div class="col-md-4 col-xs-12" style="margin-bottom: 10px;padding-left: 0;">
+                        <a class="btn btn-primary" href="/admin/notice/new">
+                            <i class="fa fa-plus"></i> 新增
+                        </a>
+                    </div>
+                </div>
+                <div class="col-xs-12">
+                    <div class="box box-primary">
+                        <div class="box-body table-responsive">
+                            <table class="table table-bordered table-hover">
+                                <thead>
+                                <tr>
+                                    <th><input type="checkbox" id="allSelect" onclick="doCheck()"></th>
+                                    <th class="col-md-4">标题</th>
+                                    <th>回复数</th>
+                                    <th>点赞数</th>
+                                    <th>访问量</th>
+                                    <th>日期</th>
+                                    <th class="col-md-3">操作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:id="'post-'+${post.id}" th:each="post : ${posts}">
+                                    <td><input type="checkbox" name="ids" th:value="${post.id}"></td>
+                                    <td>
+                                        <label>
+                                            <a th:href="'/notice/'+${post.id}" target="_blank">
+                                                [[${post.postTitle}]]
+                                            </a>
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <span class="label">[[${post.commentSize}]]</span>
+                                    </td>
+                                    <td>
+                                        <span class="label">[[${post.postLikes}]]</span>
+                                    </td>
+                                    <td>
+                                        <span class="label">[[${post.postViews}]]</span>
+                                    </td>
+                                    <td th:text="${#dates.format(post.createTime,'yyyy-MM-dd HH:mm')}"></td>
+
+                                    <td th:if="${post.postStatus == 0}">
+                                        <a th:href="'/notice/'+${post.id}" class="btn btn-primary btn-xs"
+                                           target="_blank">查看</a>
+                                        <a th:href="'/admin/notice/edit?id='+${post.id}"
+                                           class="btn btn-info btn-xs ">编辑</a>
+                                        <button class="btn btn-danger btn-xs " th:onclick="'throwIt('+${post.id}+')'">
+                                            丢弃
+                                        </button>
+                                    </td>
+                                    <td th:if="${post.postStatus == 1}">
+                                        <a th:href="'/admin/notice/edit?id='+${post.id}" class="btn btn-info btn-xs ">编辑</a>
+                                        <button class="btn btn-primary btn-xs " th:onclick="'revertIt('+${post.id}+')'">
+                                            发布
+                                        </button>
+                                        <button class="btn btn-danger btn-xs " th:onclick="'throwIt('+${post.id+'}')">
+                                            丢弃
+                                        </button>
+                                    </td>
+                                    <td th:if="${post.postStatus == 2}">
+                                        <button th:onclick="'revertIt('+${post.id}+')'" class="btn btn-primary btn-xs ">
+                                            恢复
+                                        </button>
+                                        <button class="btn btn-danger btn-xs " th:onclick="'removeIt('+${post.id}+')'">
+                                            删除
+                                        </button>
+                                    </td>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="box-footer clearfix">
+                            <div class="no-margin pull-left">
+                                第 [[${pageInfo.current}]] / [[${pageInfo.pages}]] 页
+                            </div>
+                            <ul class="pagination no-margin pull-right">
+                                <li><a data-pjax="true" th:classappend="${pageInfo.current == 1 ? 'disabled' : ''}"
+                                       class="btn btn-sm"
+                                       th:href="'/admin/notice?status='+${status}+'&sort='+${sort}+'&order='+${order}">
+                                    首页
+                                </a>
+                                </li>
+                                <li><a data-pjax="true" class="btn btn-sm"
+                                       th:classappend="${pageInfo.current == 1 ? 'disabled' : ''}"
+                                       th:href="'/admin/notice?status='+${status}+'&page='+${pageInfo.current-1}+'&sort='+${sort}+'&order='+${order}">
+                                    上一页
+                                </a>
+                                </li>
+                                <li><a data-pjax="true" class="btn btn-sm"
+                                       th:classappend="${pageInfo.current == pageInfo.pages ? 'disabled' : ''}"
+                                       th:href="'/admin/notice?status='+${status}+'&page='+${pageInfo.current+1}+'&sort='+${sort}+'&order='+${order}">
+                                    下一页
+                                </a>
+                                </li>
+                                <li><a data-pjax="true" class="btn btn-sm"
+                                       th:classappend="${pageInfo.current == pageInfo.pages ? 'disabled' : ''}"
+                                       th:href="'/admin/notice?status='+${status}+'&page='+${pageInfo.pages}+'&sort='+${sort}+'&order='+${order}">
+                                    尾页
+                                </a>
+                                </li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+        <script>
+
+            function revertIt(id) {
+                $.ajax({
+                    type: 'POST',
+                    url: '/admin/notice/revert',
+                    async: false,
+                    data: {
+                        'id': id
+                    },
+                    success: function (data) {
+                        if (data.code == 0) {
+                            showMsg(data.msg, "error", 1000);
+                        } else {
+                            showMsgAndReload(data.msg, "success", 2000);
+
+                        }
+                    }
+                });
+            }
+
+            function throwIt(id) {
+                layer.confirm('请确认是否删除', function (index) {
+                    $.ajax({
+                        type: 'POST',
+                        url: '/admin/notice/throw',
+                        async: false,
+                        data: {
+                            'id': id
+                        },
+                        success: function (data) {
+                            if (data.code == 0) {
+                                showMsg(data.msg, "error", 1000);
+                            } else {
+                                showMsgAndReload(data.msg, "success", 2000);
+                            }
+                        }
+                    });
+                    layer.close(index);
+                });
+            }
+
+            function removeIt(id) {
+                layer.confirm('请确认是否删除', function (index) {
+                    $.ajax({
+                        type: 'POST',
+                        url: '/admin/notice/delete',
+                        async: false,
+                        data: {
+                            'id': id
+                        },
+                        success: function (data) {
+                            if (data.code == 0) {
+                                showMsg(data.msg, "error", 1000);
+                            } else {
+                                showMsgAndReload(data.msg, "success", 2000);
+                            }
+                        }
+                    });
+                    layer.close(index);
+                });
+            }
+
+
+
+
+        </script>
+    </div>
+</div>
+<div th:replace="admin/module/_footer"></div>

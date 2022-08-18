@@ -1,0 +1,2 @@
+2022-08-02 14:18:29.930  INFO 12164 --- [Thread-12] com.alibaba.druid.pool.DruidDataSource   : {dataSource-1} closed
+2022-08-02 14:18:29.942  INFO 12164 --- [Thread-12] io.undertow.servlet                      : Destroying Spring FrameworkServlet 'dispatcherServlet'

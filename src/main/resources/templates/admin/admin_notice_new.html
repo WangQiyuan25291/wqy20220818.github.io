@@ -1,0 +1,146 @@
+<div th:replace="admin/module/_header"></div>
+<div class="wrapper">
+    <!-- 菜单栏模块 -->
+    <div th:replace="admin/module/_sidebar"></div>
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+
+        <style type="text/css">
+            #title {
+                font-weight: 400;
+                border-radius: 0;
+            }
+
+            #cateId option {
+                border-radius: 0;
+            }
+
+            #tags {
+                border-radius: 0;
+            }
+            .form-horizontal .control-label {
+                text-align: left;
+            }
+
+            .editor-preview-active img, .editor-preview-active-side img {
+                width: 100%;
+            }
+
+            .fr-toolbar {
+                border-top: 1px solid #ccc !important;
+            }
+
+            .fr-wrapper > div[style*='z-index: 9999'] {
+                position: absolute;
+                top: -10000px;
+                opacity: 0;
+                height: 0;
+            }
+        </style>
+        <section class="content-header">
+            <h1 style="display: inline-block;">公告发布</h1>
+            <ol class="breadcrumb">
+                <li>
+                    <a data-pjax="true" href="#"><i
+                            class="fa fa-dashboard"></i> 首页</a>
+                </li>
+                <li>
+                    <a data-pjax="true" href="/admin/notice">公告管理</a>
+                </li>
+                <li class="active">公告发布</li>
+            </ol>
+        </section>
+        <section class="content">
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- general form elements -->
+                    <div class="box box-primary">
+                        <!-- form start -->
+                        <form role="form">
+                            <div class="box-body">
+                                <div class="form-group">
+                                    <input type="text" class="form-control input-lg" id="title" placeholder="请输入标题">
+                                </div>
+                                <textarea id="postContent"></textarea>
+
+                            </div>
+                            <!-- /.box-body -->
+
+                            <div class="box-footer">
+                                <button type="button" class="btn btn-primary" onclick="saveNotice(0)">发布</button>
+                                <button type="button" class="btn btn-info" onclick="saveNotice(1)">暂存</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+        <script>
+
+            tinymce.init({
+                selector: '#postContent',
+                language: "zh_CN",
+                height: 600,
+                theme: "silver",
+                browser_spellcheck: true, // 拼写检查
+                branding: true, // 去水印
+                // elementpath: false,  //禁用编辑器底部的状态栏
+                statusbar: false, // 隐藏编辑器底部的状态栏
+                paste_data_images: true, // 允许粘贴图像
+                menubar: true, // 隐藏最上方menu
+                fontsize_formats:
+                    "12px 13px 14px 15px 16px 17px 18px 20px 22px 24px 26px 30px 35px 40px 50px",
+                plugins:
+                    "print preview fullpage searchreplace autolink directionality visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists textcolor wordcount  imagetools  contextmenu colorpicker textpattern help code",
+                toolbar:
+                    "formatselect | bold italic strikethrough forecolor backcolor fontsizeselect | link image  | alignleft aligncenter alignright alignjustify  | numlist bullist outdent indent  | removeformat| code",
+                paste_webkit_styles: true,
+                paste_data_images: true,  //  设置为允许粘帖图片
+                images_upload_url: '/admin/file/upload', //  图片上传地址
+                contextmenu: `inserttable | cell row column deletetable`,
+                relative_urls: false,
+                remove_script_host: false
+            });
+
+
+            function saveNotice(status) {
+                var id = $('#postId').val();
+                var title = $('#title').val();
+                var content =   tinymce.activeEditor.getContent();
+                if(title == null || title == '') {
+                    showMsg("请输入公告标题", "info", 2000);
+                    return;
+                }
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/admin/notice/save',
+                    async: false,
+                    data: {
+                        'id': id,
+                        'postStatus': status,
+                        'postTitle': title,
+                        'postContent': content
+                    },
+                    success: function (data) {
+                        if (data.code == 1) {
+                            if(status == 1) {
+                                showMsg("暂存成功", "success", 2000);
+                            } else {
+                                showMsgAndRedirect("发布成功", "success", 1000, "/admin/notice");
+                            }
+                        } else {
+                            showMsg(data.msg, "error", 2000);
+
+                        }
+                    }
+                });
+            }
+
+
+        </script>
+    </div>
+
+</div>
+<div th:replace="admin/module/_footer"></div>

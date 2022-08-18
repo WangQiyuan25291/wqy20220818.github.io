@@ -1,0 +1,32 @@
+<ul class="nav nav-tabs pt-tabs-default" role="tablist">
+    <li class="nav-item" th:classappend="${type == 'new' ? 'show' : ''}">
+        <a class="nav-link" th:classappend="${type == 'new' ? 'active' : ''}" href="/post" role="tab"><span>最新文章</span></a>
+    </li>
+<!--    <li class="nav-item"  th:classappend="${type == 'notice' ? 'show' : ''}">-->
+<!--        <a class="nav-link" th:classappend="${type == 'notice' ? 'active' : ''}" href="/post/notice" role="tab"><span>最新公告</span></a>-->
+<!--    </li>-->
+    <li class="nav-item"  th:classappend="${type == 'recommend' ? 'show' : ''}">
+        <a class="nav-link" th:classappend="${type == 'recommend' ? 'active' : ''}" href="/post/recommend" role="tab"><span>推荐文章</span></a>
+    </li>
+
+    <li class="nav-item"  th:classappend="${type == 'hot' ? 'show' : ''}">
+        <a class="nav-link" th:classappend="${type == 'hot' ? 'active' : ''}" href="/post/hot" role="tab"><span>热门文章</span></a>
+    </li>
+    <li class="nav-item"  th:classappend="${type == 'publish' ? 'show' : ''}">
+        <a class="nav-link" th:classappend="${type == 'publish' ? 'active' : ''}" href="/post/publish" role="tab"><span>我发布的</span></a>
+    </li>
+
+    <li class="nav-item"  th:classappend="${type == 'mark' ? 'show' : ''}">
+        <a class="nav-link " th:classappend="${type == 'mark' ? 'active' : ''}" href="/post/mark"><span>我的收藏</span></a>
+    </li>
+    <li class="nav-item"  th:classappend="${type == 'like' ? 'show' : ''}">
+        <a class="nav-link " th:classappend="${type == 'like' ? 'active' : ''}" href="/post/like"><span>我的点赞</span></a>
+    </li>
+
+    <li class="nav-item"  th:classappend="${type == 'follow' ? 'show' : ''}">
+        <a class="nav-link" th:classappend="${type == 'follow' ? 'active' : ''}" href="/user/follow"><span>我的关注</span></a>
+    </li>
+    <li class="nav-item"  th:classappend="${type == 'fans' ? 'show' : ''}">
+        <a class="nav-link" th:classappend="${type == 'fans' ? 'active' : ''}" href="/user/fans"><span>我的粉丝</span></a>
+    </li>
+</ul>

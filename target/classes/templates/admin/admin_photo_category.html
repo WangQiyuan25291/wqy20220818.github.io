@@ -1,0 +1,232 @@
+<div th:replace="admin/module/_header"></div>
+<style>
+
+</style>
+<div class="wrapper">
+    <!-- 菜单栏模块 -->
+    <div th:replace="admin/module/_sidebar"></div>
+    <div class="content-wrapper">
+        <section class="content-header">
+            <h1>
+                相册列表
+                <small></small>
+            </h1>
+            <ol class="breadcrumb">
+                <li>
+                    <a data-pjax="true" href="/admin">
+                        <i class="fa fa-dashboard"></i> 首页</a>
+                </li>
+                <li><a data-pjax="true" href="/admin/photoCategory">相册管理</a></li>
+                <li class="active">照片列表</li>
+            </ol>
+        </section>
+        <section class="content container-fluid">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="col-md-4 col-xs-12" style="padding-left: 0;">
+                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#categoryModal">
+                            新增
+                        </button>
+                        <button type="button" class="btn btn-primary" onclick="selectUpdate()">
+                            更新
+                        </button>
+                        <button type="button" class="btn btn-danger" onclick="batchDelete()">
+                            批量删除
+                        </button>
+                    </div>
+
+
+                </div>
+
+                <div class="col-md-12" style="margin-top: 20px;">
+                    <div class="col-lg-2 col-md-3 col-sm-6 col-xs-6 div-thumbnail-parent"
+                         th:each="category : ${categories}">
+                        <div class="div-thumbnail">
+                            <input type="checkbox" class="thumbnail-checkbox" name="ids" th:value="${category.id}">
+                            <div class="clear"></div>
+                            <a th:href="${'/admin/photo?cateId='+category.id}">
+                                <img src="/static/images/photoCategory.png"
+                                     class="div-thumbnail-img" title="avatar.jpg">
+                            </a>
+                        </div>
+                        <div class="div-thumbnail-text">
+                            [[${category.cateName}]]
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="no-margin pull-left">
+                        第 [[${pageInfo.current}]] / [[${pageInfo.pages}]] 页
+                    </div>
+                    <ul class="pagination no-margin pull-right">
+                        <li><a data-pjax="true"  th:classappend="${pageInfo.current == 1 ? 'disabled' : ''}" class="btn btn-sm"
+                               href="/admin/photoCategory">
+                            首页
+                        </a>
+                        </li>
+                        <li><a data-pjax="true" class="btn btn-sm"  th:classappend="${pageInfo.current == 1 ? 'disabled' : ''}"
+                               th:href="'/admin/photoCategory?page='+${pageInfo.current-1}">
+                            上一页
+                        </a>
+                        </li>
+                        <li><a data-pjax="true" class="btn btn-sm"  th:classappend="${pageInfo.current == pageInfo.pages ? 'disabled' : ''}"
+                               th:href="'/admin/photoCategory?page='+${pageInfo.current+1}">
+                            下一页
+                        </a>
+                        </li>
+                        <li><a data-pjax="true" class="btn btn-sm" th:classappend="${pageInfo.current == pageInfo.pages ? 'disabled' : ''}"
+                               th:href="'/admin/photoCategory?page='+${pageInfo.pages}">
+                            尾页
+                        </a>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+            <!-- 添加和保存模态框（Modal） -->
+            <div class="modal fade" id="categoryModal" tabindex="-1" role="dialog"
+                 aria-labelledby="categoryModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                    aria-hidden="true">&times;</span></button>
+                            <h6 class="modal-title" id="categoryModalLabel">相册信息</h6>
+                        </div>
+                        <div class="modal-body">
+                            <form id="cateForm">
+                                <input type="hidden" name="id" id="id">
+                                <div class="form-group">
+                                    <label for="cateName" class="control-label">相册名称:</label>
+                                    <input type="text" class="form-control" id="cateName" name="cateName"
+                                           required="true">
+                                </div>
+                                <div class="form-group">
+                                    <label for="cateSort">排序:</label>
+                                    <input type="number" class="form-control" id="cateSort" name="cateSort"
+                                           value="1">
+                                </div>
+                                <div class="form-group">
+                                    <label for="cateDesc"
+                                           class="control-label">相册描述:</label>
+                                    <textarea class="form-control" rows="3" id="cateDesc" name="cateDesc"
+                                              style="resize: none"></textarea>
+                                </div>
+
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                            <button type="button" class="btn btn-primary" onclick="saveCategory()">确认</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.modal -->
+        </section>
+        <script>
+
+            function saveCategory() {
+                $.ajax({
+                    type: 'POST',
+                    url: '/admin/photoCategory/save',
+                    async: false,
+                    data: $("#cateForm").serialize(),
+                    success: function (data) {
+                        if (data.code == 0) {
+                            showMsg(data.msg, "error", 1000);
+                        } else {
+                            showMsgAndRedirect(data.msg, "success", 1000, "/admin/photoCategory");
+                        }
+                    }
+                });
+            };
+
+            function removeIt(id) {
+                layer.confirm('请确认是否删除', function (index) {
+                    $.ajax({
+                        type: 'DELETE',
+                        url: '/admin/photoCategory/delete',
+                        async: false,
+                        data: {
+                            'id': id
+                        },
+                        success: function (data) {
+                            if (data.code == 0) {
+                                showMsg(data.msg, "error", 1000);
+                            } else {
+                                showMsgAndRedirect(data.msg, "success", 1000, "/admin/photoCategory");
+                            }
+
+                        }
+                    });
+                    layer.close(index);
+                });
+            }
+
+            // 勾选
+            $('.div-thumbnail').click(function () {
+                let dom = $(this).find('.thumbnail-checkbox');
+                if (dom.is(':checked')) {
+                    dom.removeAttr('checked');
+                } else {
+                    dom.attr('checked', 'checked');
+                }
+            })
+
+            function batchDelete() {
+                var arr = [];
+                $('input[name="ids"]:checked').each(function () {
+                    arr.push($(this).val());
+                });
+                if (arr.length <= 0) {
+                    showMsg('请选择需要删除的数据', "error", 1000);
+                } else {
+                    layer.confirm('请选择需要删除' + arr.length + '条数据吗？', function (index) {
+                        $.ajax({
+                            url: "/admin/photoCategory/batchDelete?ids=" + arr,
+                            type: "DELETE",
+                            success: function (data) {
+                                if (data.code == 0) {
+                                    showMsg(data.msg, "error", 1000);
+                                } else {
+                                    showMsgAndReload(data.msg, "success", 2000);
+                                }
+                            }
+                        });
+                        layer.close(index);
+                    });
+                }
+            }
+
+            function selectUpdate() {
+                var arr = [];
+                $('input[name="ids"]:checked').each(function () {
+                    arr.push($(this).val());
+                });
+                if (arr.length != 1) {
+                    showMsg('请选择一个相册进行更新', "error", 1000);
+                } else {
+                    $.ajax({
+                        url: "/admin/photoCategory/detail?id=" + arr,
+                        type: "GET",
+                        success: function (data) {
+                            if (data.code == 0) {
+                                showMsg(data.msg, "error", 1000);
+                            } else {
+                                let category = data.result;
+                                $('#id').val(category.id);
+                                $('#cateName').val(category.cateName);
+                                $('#cateDesc').val(category.cateDesc);
+                                $('#cateSort').val(category.cateSort);
+                                $('#categoryModal').modal('show');
+                            }
+                        }
+                    });
+                }
+            }
+        </script>
+    </div>
+
+</div>
+<div th:replace="admin/module/_footer"></div>
